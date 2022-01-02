@@ -36,6 +36,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 18,
               ),
               Text('รูปถ่าย'),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Ink(
+                  color: Colors.grey[300],
+                  child: InkWell(
+                    onTap: () {
+                      print("OPEN CAMERA");
+                    },
+                    child: Container(
+                      height: 150,
+                      child: Center(
+                        child: Icon(Icons.camera_alt),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 18,
               ),
