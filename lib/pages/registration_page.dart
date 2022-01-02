@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:registion_pad/models/profile.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -8,6 +9,9 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  final _formKey = GlobalKey<FormState>();
+  Profile? _profile = new Profile(firstName: "firstName", lastName: "lastName", email: "email", imageRef: "imageRef");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +21,35 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: Container(
         padding: EdgeInsets.all(20),
         child: Form(
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('ชื่อ'),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (firstName) {
+                    _profile?.firstName = firstName!;
+                  },
+                ),
                 SizedBox(
                   height: 18,
                 ),
                 Text('นามสกุล'),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (lastName) {
+                    _profile?.lastName = lastName!;
+                  },
+                ),
                 SizedBox(
                   height: 18,
                 ),
                 Text('อีเมลล์'),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (email) {
+                    _profile?.email = email!;
+                  },
+                ),
                 SizedBox(
                   height: 18,
                 ),
@@ -60,7 +77,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 SizedBox(
                   width: double.infinity,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print('ลงทะเบียน');
+                      _formKey.currentState!.save();
+                      print('${_profile?.firstName}  ${_profile?.lastName}  ${_profile?.email}');
+                    },
                     child: Text('ลงทะเบียน'),
                   ),
                 )

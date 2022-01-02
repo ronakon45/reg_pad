@@ -4,5 +4,5 @@ class Profile {
   String email;
   String imageRef;
 
-  Profile(this.firstName,this.lastName,this.email,this.imageRef);
+  Profile({required this.firstName, required this.lastName, required this.email, required this.imageRef});
 }
