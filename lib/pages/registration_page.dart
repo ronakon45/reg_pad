@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:registion_pad/models/profile.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -11,7 +14,23 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
-  final _profile = Profile(firstName: "-", lastName: "-", email: "-", imageRef: "-");
+  final _profile =
+      Profile(firstName: "-", lastName: "-", email: "-", imageRef: "-");
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _selectedImageFile;
+
+  getImage() async {
+
+    final selectedFile =
+        await _imagePicker.getImage(source: ImageSource.camera);
+
+    _selectedImageFile = File(selectedFile!.path);
+
+    setState(() {
+      _selectedImageFile = File(selectedFile.path);
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,16 +87,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   child: Ink(
                     color: Colors.grey[300],
                     child: InkWell(
-                      onTap: () {
-                        print("OPEN CAMERA");
-                      },
-                      child: Container(
-                        height: 150,
-                        child: Center(
-                          child: Icon(Icons.camera_alt),
-                        ),
-                      ),
-                    ),
+                        onTap: () {
+                          print("OPEN CAMERA");
+                          getImage();
+                        },
+                        child: _selectedImageFile != null
+                            ? Image.file(_selectedImageFile!)
+                            : Container(
+                                height: 150,
+                                child: Center(
+                                  child: Icon(Icons.camera_alt),
+                                ),
+                              )),
                   ),
                 ),
                 SizedBox(
