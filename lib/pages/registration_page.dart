@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:registion_pad/models/profile.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
-  Profile? _profile = new Profile(firstName: "firstName", lastName: "lastName", email: "email", imageRef: "imageRef");
+  final _profile = Profile(firstName: "-", lastName: "-", email: "-", imageRef: "-");
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               children: [
                 Text('ชื่อ'),
                 TextFormField(
+                  validator: RequiredValidator(errorText: 'กรุณากรอกข้อมูล'),
                   onSaved: (firstName) {
-                    _profile?.firstName = firstName!;
+                    _profile.firstName = firstName!;
                   },
                 ),
                 SizedBox(
@@ -37,8 +39,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 Text('นามสกุล'),
                 TextFormField(
+                  validator: RequiredValidator(errorText: 'กรุณากรอกข้อมูล'),
                   onSaved: (lastName) {
-                    _profile?.lastName = lastName!;
+                    _profile.lastName = lastName!;
                   },
                 ),
                 SizedBox(
@@ -46,9 +49,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 Text('อีเมลล์'),
                 TextFormField(
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'กรุณากรอก Email'),
+                    EmailValidator(
+                        errorText: 'กรุณากรอกข้อมูล email ที่ถูกต้อง'),
+                  ]),
                   onSaved: (email) {
-                    _profile?.email = email!;
+                    _profile.email = email!;
                   },
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 18,
@@ -76,11 +85,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       print('ลงทะเบียน');
-                      _formKey.currentState!.save();
-                      print('${_profile?.firstName}  ${_profile?.lastName}  ${_profile?.email}');
+                      _formKey.currentState?.save();
+                      print(
+                          '${_profile.firstName}  ${_profile.lastName}  ${_profile.email}');
                     },
                     child: Text('ลงทะเบียน'),
                   ),
