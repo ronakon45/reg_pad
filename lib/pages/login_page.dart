@@ -15,6 +15,10 @@ class _LoginPageState extends State<LoginPage> {
   String _username = "";
   String _password = "";
 
+  String response = "Please hit login ";
+  String accToken =  "";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,13 +87,24 @@ class _LoginPageState extends State<LoginPage> {
                         final authFromApi = authFromApiFromJson(jsonString);
                         print(authFromApi.toJson());
                         print(authFromApi.accessToken);
+                        accToken = authFromApi.accessToken!;
+
+
+                        setState(() {
+                          accToken = authFromApi.accessToken!;
+                        });
                       } else {
                         print(response.reasonPhrase);
                       }
                     },
                     child: Text('login'),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 18,
+                ),
+                Text("Your access token"),
+                Text(accToken)
               ],
             ),
           ),

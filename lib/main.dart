@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:registion_pad/pages/login_page.dart';
+import 'package:registion_pad/pages/productlist_page.dart';
 import 'package:registion_pad/pages/registration_page.dart';
 
 void main() {
@@ -32,12 +33,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           body: TabBarView(children: [
             RegistrationPage(),
             Container(),
             LoginPage(),
+            ProductListPage()
           ]),
           backgroundColor: Colors.blue,
           bottomNavigationBar: TabBar(tabs: [
@@ -49,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Tab(
               text: 'login',
+            ),
+            Tab(
+              text: 'ProductList',
             )
           ]),
         ));
