@@ -40,45 +40,68 @@ class _ProductListPageState extends State<ProductListPage> {
         print(response.reasonPhrase);
       }
     }
+    // SizedBox(
+    //   width: double.infinity,
+    //   child: ElevatedButton(
+    //     onPressed: () async {
+    //       print("OK");
+    //       testGetList();
+    //       // exampleList();
+    //     },
+    //     child: Text('load list'),
+    //   ),
+    // ),
+
+    // ListView(
+    //   padding: const EdgeInsets.all(8),
+    //   children: <Widget>[
+    //     Container(
+    //       height: 50,
+    //       color: Colors.amber[600],
+    //       child: const Center(child: Text('Entry A')),
+    //     ),
+    //     Container(
+    //       height: 50,
+    //       color: Colors.amber[500],
+    //       child: const Center(child: Text('Entry B')),
+    //     ),
+    //     Container(
+    //       height: 50,
+    //       color: Colors.amber[100],
+    //       child: const Center(child: Text('Entry C')),
+    //     ),
+    //   ],
+    // )
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('ProductList'),
+        title: Text('Product List'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () async {
-                print("OK");
-                testGetList();
-                // exampleList();
-              },
-              child: Text('load list'),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Form(
+          key: null,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print('hit button');
+                      testGetList();
+                    },
+                    child: Text('load'),
+                  ),
+                ),
+                SizedBox(
+                  height: 18,
+                ),
+              ],
             ),
           ),
-          // ListView(
-          //   padding: const EdgeInsets.all(8),
-          //   children: <Widget>[
-          //     Container(
-          //       height: 50,
-          //       color: Colors.amber[600],
-          //       child: const Center(child: Text('Entry A')),
-          //     ),
-          //     Container(
-          //       height: 50,
-          //       color: Colors.amber[500],
-          //       child: const Center(child: Text('Entry B')),
-          //     ),
-          //     Container(
-          //       height: 50,
-          //       color: Colors.amber[100],
-          //       child: const Center(child: Text('Entry C')),
-          //     ),
-          //   ],
-          // )
-        ],
+        ),
       ),
     );
   }
