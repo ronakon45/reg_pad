@@ -17,61 +17,8 @@ class _ProductListPageState extends State<ProductListPage> {
     final List<String> entries = <String>['A', 'B', 'C'];
     final List<int> colorCodes = <int>[600, 500, 100];
 
-    Future<void> testGetList() async {
-      var headers = {
-        'Authorization': 'Bearer ImUKf1qomlWWPcaoNccBXNBHNY0',
-        'Cookie': 'JSESSIONID=8F0A27AED12373C3C0AB6261AE779094'
-      };
-      var request = http.Request(
-          'GET',
-          Uri.parse(
-              'http://192.168.1.116:8080/rest/entities/triple1_Product?limit=10&offset=1&sort=createdDate'));
-
-      request.headers.addAll(headers);
-
-      http.StreamedResponse response = await request.send();
-
-      if (response.statusCode == 200) {
-        var res = await response.stream.bytesToString();
-        print(res);
-        final product = productFromJson(res);
-        print(product.length);
-      } else {
-        print(response.reasonPhrase);
-      }
-    }
-    // SizedBox(
-    //   width: double.infinity,
-    //   child: ElevatedButton(
-    //     onPressed: () async {
-    //       print("OK");
-    //       testGetList();
-    //       // exampleList();
-    //     },
-    //     child: Text('load list'),
-    //   ),
-    // ),
-
-    // ListView(
-    //   padding: const EdgeInsets.all(8),
-    //   children: <Widget>[
-    //     Container(
-    //       height: 50,
-    //       color: Colors.amber[600],
-    //       child: const Center(child: Text('Entry A')),
-    //     ),
-    //     Container(
-    //       height: 50,
-    //       color: Colors.amber[500],
-    //       child: const Center(child: Text('Entry B')),
-    //     ),
-    //     Container(
-    //       height: 50,
-    //       color: Colors.amber[100],
-    //       child: const Center(child: Text('Entry C')),
-    //     ),
-    //   ],
-    // )
+    String size = "2";
+    Future<void> testGetList() async {}
 
     return Scaffold(
       appBar: AppBar(
@@ -91,6 +38,32 @@ class _ProductListPageState extends State<ProductListPage> {
                     onPressed: () async {
                       print('hit button');
                       testGetList();
+                      var headers = {
+                        'Authorization': 'Bearer ImUKf1qomlWWPcaoNccBXNBHNY0',
+                        'Cookie': 'JSESSIONID=8F0A27AED12373C3C0AB6261AE779094'
+                      };
+                      var request = http.Request(
+                          'GET',
+                          Uri.parse(
+                              'http://192.168.1.116:8080/rest/entities/triple1_Product?limit=10&offset=1&sort=createdDate'));
+
+                      request.headers.addAll(headers);
+
+                      http.StreamedResponse response = await request.send();
+
+                      if (response.statusCode == 200) {
+                        var res = await response.stream.bytesToString();
+                        print(res);
+                        final product = productFromJson(res);
+                        print(product.length);
+                        size = product.toString();
+
+                        setState(() {
+                          size = product.toString();
+                        });
+                      } else {
+                        print(response.reasonPhrase);
+                      }
                     },
                     child: Text('load'),
                   ),
@@ -98,6 +71,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 SizedBox(
                   height: 18,
                 ),
+                Text(size)
               ],
             ),
           ),
